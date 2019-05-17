@@ -1,0 +1,65 @@
+.corpo {
+  align-content: center;
+  height: 200px;
+  width: 455px;
+  padding: 10px;
+  background-color: rgb(34, 34, 34);
+  border-color: rgb(76, 76, 76);
+  border-radius: 35px;
+  border-style: outset;
+  border-bottom-width: 7px;
+  border-right-width: 6px;
+  /* box-shadow: inset -5px -5px 14px -5px #000000; */
+  box-shadow: inset 5px 5px 14px -9px #6d6d6d;
+}
+
+input {
+  width: 420px;
+  height: 135px;
+  margin: 10px;
+  margin-top: 14px;
+  padding-right: 11px;
+  text-align-last: right;
+  font-size: 110px;
+  font-family: Alarm clock;
+  background: rgb(39, 32, 32);
+  color: rgb(255, 73, 73);
+  box-shadow: inset 0px 1px 15px -1px #000000;
+  border-color: rgb(48, 48, 48);
+  border-bottom-width: 5px;
+  border-right-width: 5px;
+}
+
+[data-js=visor] {
+  top: 20px;
+  float: inline-start;
+  position: absolute;
+  opacity: .94;
+}
+
+.botoes {
+  align-content: center;
+  margin-top: 0px;
+  margin: 10px;
+  background-color: rgb(34, 34, 34);
+}
+
+button {
+  width: 60px;
+  height: 23px;
+  margin-right: 4px;
+  padding: 0px;
+  color: whitesmoke;
+  background: rgb(68, 68, 68);
+  border-color: rgb(85, 85, 85);
+  font-size: 12px;
+  font-family: Helvetica;
+  box-shadow: inset -5px -5px 15px -11px #303030;
+  border-radius: 2.5px;
+  text-shadow: 0.2px 0.2px #000000;
+}
+
+@font-face {
+  font-family: Alarm clock;
+  src: url("../font/alarm\ clock.ttf")
+}
