@@ -40,14 +40,15 @@ input {
 .botoes {
   align-content: center;
   margin-top: 0px;
-  margin: 10px;
+  margin: 5px;
   background-color: rgb(34, 34, 34);
 }
 
 button {
   width: 60px;
   height: 23px;
-  margin-right: 4px;
+  margin-left: 8px;
+  margin-right: 3px;
   padding: 0px;
   color: whitesmoke;
   background: rgb(68, 68, 68);
