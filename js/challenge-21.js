@@ -25,9 +25,23 @@ dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
   let $buttonMode = document.querySelector("[data-js=mode]");
   let $labelModo = document.querySelector("[data-js=descricaoModo]");
   let rodando = false;
-  let modo = -1;
+  let modo = 1;
   let temporizador;
   let tempo;
+  let acoesDasTeclas = [
+    {
+      isTecla: tecla => tecla === " " || tecla === "F7",
+      executar: () => (rodando ? pausarContagem() : iniciarContagem())
+    },
+    {
+      isTecla: tecla => tecla === "Escape",
+      executar: () => reiniciarContagem()
+    },
+    {
+      isTecla: tecla => tecla.toUpperCase() === "M" || tecla === "F2",
+      executar: () => alternarModo()
+    }
+  ];
 
   moment.locale("pt-br");
 
@@ -68,12 +82,9 @@ dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
   }
 
   function comandarPorTeclas(event) {
-    switch (event.key) {
-      case (" ", "F7"):
-        return rodando ? pausarContagem() : iniciarContagem();
-      case "Escape":
-        return reiniciarContagem();
-    }
+    acoesDasTeclas
+      .filter(acaoTecla => acaoTecla.isTecla(event.key))
+      .forEach(acaoTecla => acaoTecla.executar());
   }
 
   function alternarModo() {
