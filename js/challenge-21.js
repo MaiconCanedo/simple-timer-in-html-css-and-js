@@ -17,16 +17,19 @@ dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
 
 {
   ("use strict");
-  moment.locale("pt-br");
-
+  const SEGUNDO = 1000;
   let $inputVisor = document.querySelector("[data-js=visor]");
   let $buttonStart = document.querySelector("[data-js=start]");
   let $buttonPause = document.querySelector("[data-js=pause]");
   let $buttonReset = document.querySelector("[data-js=reset]");
-  const SEGUNDO = 1000;
+  let $buttonMode = document.querySelector("[data-js=mode]");
+  let $labelModo = document.querySelector("[data-js=descricaoModo]");
   let rodando = false;
+  let modo = -1;
   let temporizador;
   let tempo;
+
+  moment.locale("pt-br");
 
   function initialize() {
     initEvents();
@@ -36,12 +39,13 @@ dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
     $buttonStart.addEventListener("click", iniciarContagem, false);
     $buttonPause.addEventListener("click", pausarContagem, false);
     $buttonReset.addEventListener("click", reiniciarContagem, false);
+    $buttonMode.addEventListener("click", alternarModo, false);
     document.addEventListener("keydown", comandarPorTeclas, false);
   }
 
   let iniciarContagem = event => {
     setTempo();
-    tempo.add(1, "s");
+    tempo.add(modo, "s");
     $inputVisor.value = tempo.format("HH:mm:ss");
     $buttonStart.removeEventListener("click", iniciarContagem, false);
     rodando = true;
@@ -65,11 +69,16 @@ dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
 
   function comandarPorTeclas(event) {
     switch (event.key) {
-      case " ", "F7":
+      case (" ", "F7"):
         return rodando ? pausarContagem() : iniciarContagem();
       case "Escape":
         return reiniciarContagem();
     }
+  }
+
+  function alternarModo() {
+    modo *= -1;
+    $labelModo.innerHTML = modo > 0 ? "ASC" : "DESC";
   }
 
   initialize();

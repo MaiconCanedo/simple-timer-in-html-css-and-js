@@ -13,6 +13,27 @@
   box-shadow: inset 5px 5px 14px -9px #6d6d6d;
 }
 
+label {
+  left: 430px;
+  top: 145px;
+  float: inline-start;
+  position: absolute;
+  font-family: Alarm clock;
+  font-size: 24px;
+  color: rgb(255, 73, 73);
+}
+
+[data-js=modo] {
+  left: 385px;
+  top: 154px;
+  font-family: Arial;
+  font-size: 12px;
+}
+
+[data-js=fundoModo] {
+  opacity: .1;
+}
+
 input {
   width: 470px;
   height: 135px;
@@ -34,7 +55,7 @@ input {
   top: 20px;
   float: inline-start;
   position: absolute;
-  opacity: .94;
+  opacity: .95;
 }
 
 .botoes {
