@@ -23,13 +23,6 @@ label {
   color: rgb(255, 73, 73);
 }
 
-[data-js=modo] {
-  left: 385px;
-  top: 154px;
-  font-family: Arial;
-  font-size: 12px;
-}
-
 [data-js=fundoModo] {
   opacity: .1;
 }
