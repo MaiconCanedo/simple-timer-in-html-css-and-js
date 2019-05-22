@@ -15,42 +15,50 @@ usar o nome que achar melhor, desde que ele seja semântico, ou seja, o nome
 dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
 */
 
-(function (window, document) {
-    let $inputVisor = document.querySelector("[data-js=visor]")
-    let $buttonStart = document.querySelector("[data-js=start]");
-    let $buttonPause = document.querySelector("[data-js=pause]");
-    let $buttonReset = document.querySelector("[data-js=reset]");
-    const SEGUNDO = 1000;
-    let temporizador;
-    let count = $inputVisor.value;
-    let rodando = false;
+{
+  ("use strict");
+  moment.locale("pt-br");
 
-    let contar = () => {
-        $inputVisor.value = count++;
-        temporizador = setTimeout(contar, SEGUNDO);
-    }
+  let $inputVisor = document.querySelector("[data-js=visor]");
+  let $buttonStart = document.querySelector("[data-js=start]");
+  let $buttonPause = document.querySelector("[data-js=pause]");
+  let $buttonReset = document.querySelector("[data-js=reset]");
+  const SEGUNDO = 1000;
+  let temporizador;
+  let rodando = false;
+  let tempo;
 
-    let iniciarContagem = event => {
-        count = $inputVisor.value;
-        $buttonStart.removeEventListener("click", iniciarContagem, false);
-        contar();
-    }
+  function initialize() {
+    initEvents();
+  }
 
-    let pausarContagem = event => {
-        $buttonStart.addEventListener("click", iniciarContagem, false);
-        return clearTimeout(temporizador);
-    }
-
-    let reiniciarContagem = event => {
-        pausarContagem();
-        $inputVisor.value = count = 0;
-    }
-
-    var iniciar = $buttonStart.addEventListener("click", iniciarContagem, false);
+  function initEvents() {
+    $buttonStart.addEventListener("click", iniciarContagem, false);
     $buttonPause.addEventListener("click", pausarContagem, false);
     $buttonReset.addEventListener("click", reiniciarContagem, false);
+  }
 
+  let iniciarContagem = event => {
+    setTempo();
+    tempo.add(1, "s");
+    $inputVisor.value = tempo.format("HH:mm:ss");
+    $buttonStart.removeEventListener("click", iniciarContagem, false);
+    temporizador = setTimeout(iniciarContagem, SEGUNDO);
+  };
 
+  let pausarContagem = event => {
+    $buttonStart.addEventListener("click", iniciarContagem, false);
+    return clearTimeout(temporizador);
+  };
 
+  let reiniciarContagem = event => {
+    pausarContagem();
+    $inputVisor.value = "00:00:00";
+  };
 
-})(window, document);
+  function setTempo() {
+    tempo = moment($inputVisor.value, "HH:mm:ss");
+  }
+
+  initialize();
+}
