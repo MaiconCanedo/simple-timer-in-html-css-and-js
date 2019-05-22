@@ -24,8 +24,8 @@ dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
   let $buttonPause = document.querySelector("[data-js=pause]");
   let $buttonReset = document.querySelector("[data-js=reset]");
   const SEGUNDO = 1000;
-  let temporizador;
   let rodando = false;
+  let temporizador;
   let tempo;
 
   function initialize() {
@@ -36,6 +36,7 @@ dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
     $buttonStart.addEventListener("click", iniciarContagem, false);
     $buttonPause.addEventListener("click", pausarContagem, false);
     $buttonReset.addEventListener("click", reiniciarContagem, false);
+    document.addEventListener("keydown", comandarPorTeclas, false);
   }
 
   let iniciarContagem = event => {
@@ -43,11 +44,13 @@ dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
     tempo.add(1, "s");
     $inputVisor.value = tempo.format("HH:mm:ss");
     $buttonStart.removeEventListener("click", iniciarContagem, false);
+    rodando = true;
     temporizador = setTimeout(iniciarContagem, SEGUNDO);
   };
 
   let pausarContagem = event => {
     $buttonStart.addEventListener("click", iniciarContagem, false);
+    rodando = false;
     return clearTimeout(temporizador);
   };
 
@@ -58,6 +61,15 @@ dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
 
   function setTempo() {
     tempo = moment($inputVisor.value, "HH:mm:ss");
+  }
+
+  function comandarPorTeclas(event) {
+    switch (event.key) {
+      case " ", "F7":
+        return rodando ? pausarContagem() : iniciarContagem();
+      case "Escape":
+        return reiniciarContagem();
+    }
   }
 
   initialize();
